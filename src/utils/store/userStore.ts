@@ -1,4 +1,3 @@
-// src/stores/userStore.js
 import { defineStore } from 'pinia';
 import { User } from '../types';
 
@@ -7,6 +6,7 @@ export const useUserStore = defineStore('user', {
     user: null as User | null,
     isAuthenticated: false,
   }),
+  persist: true,
   actions: {
     setUser(userData : User) {
       this.user = userData;
