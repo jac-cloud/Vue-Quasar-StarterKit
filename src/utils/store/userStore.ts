@@ -8,16 +8,19 @@ export const useUserStore = defineStore('user', {
   }),
   persist: true,
   actions: {
-    setUser(userData : User) {
+    login(userData : User) {
       this.user = userData;
       this.isAuthenticated = true;
     },
-    clearUser() {
+    logout() {
       this.user = null;
       this.isAuthenticated = false;
     },
     getUser() {
       return this.user;
     },
+    getIsAuthenticated() {
+      return this.isAuthenticated;
+    }
   },
 });
