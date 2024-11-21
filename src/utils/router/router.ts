@@ -6,13 +6,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         component: () => import('../../pages/Home.vue'),
 
-       /*  beforeEnter: (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-            if (authContext.isAuthenticated) {
-                next();
-            } else {
-                next('/login');
-            }
-        }, */
+       
         
     },
 ];
