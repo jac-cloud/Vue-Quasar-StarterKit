@@ -34,7 +34,7 @@ export default {
         onSubmit() { 
             if (this.email && this.password) {
                 // Handle login logic here
-                userStore.setUser({
+                userStore.login({
                     id: '1',
                     name: 'John Doe',
                     roles: ['admin'],

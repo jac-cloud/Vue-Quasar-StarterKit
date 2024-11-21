@@ -39,13 +39,12 @@ export default {
     },
     logout() {
       const userStore = useUserStore();  // Access store inside a method
-      userStore.clearUser();  // Call the store action
+      userStore.logout();  // Call the store action
     }
   },
   computed: {
     isLogged() {
       const userStore = useUserStore();  // Access store inside computed
-      console.log(userStore.isAuthenticated);
       return userStore.isAuthenticated;
     }
   }
