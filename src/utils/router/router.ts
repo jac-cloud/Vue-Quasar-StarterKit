@@ -6,12 +6,14 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         meta: {  },
         component: () => import('../../pages/Home.vue'),
-        beforeEnter: (to, from, next) => {
+/*         beforeEnter: (to, from, next) => {
             authGuard.beforeEnter(to, from, next);
-        }
-
-       
-        
+        }, */
+    },
+    {
+        path: '/login',
+        meta: {  },
+        component: () => import('../../pages/Login.vue'),
     },
 ];
 

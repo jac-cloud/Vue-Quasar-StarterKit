@@ -8,6 +8,7 @@ import 'quasar/dist/quasar.css'
 
 import App from './AppLayout.vue'
 import router from './utils/router/router'
+import pinia from './utils/store/storeConfiguration'
 
 const myApp = createApp(App)
 
@@ -17,5 +18,7 @@ myApp.use(Quasar, {
 })
 
 myApp.use(router)
+
+myApp.use(pinia)
 
 myApp.mount('#app')
