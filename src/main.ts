@@ -6,7 +6,8 @@ import '@quasar/extras/material-symbols-rounded/material-symbols-rounded.css'
 // Import Quasar css
 import 'quasar/dist/quasar.css'
 
-import App from './App.vue'
+import App from './AppLayout.vue'
+import router from './utils/router/router'
 
 const myApp = createApp(App)
 
@@ -15,5 +16,6 @@ myApp.use(Quasar, {
   }, // import Quasar plugins and add here
 })
 
-// Assumes you have a <div id="app"></div> in your index.html
+myApp.use(router)
+
 myApp.mount('#app')

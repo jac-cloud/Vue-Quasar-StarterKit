@@ -1,12 +1,25 @@
-const routes = [
+import { createRouter, createWebHistory, RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
+import authContext from '../auth/authContext'; 
+
+const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
-        component: () => import('../../App.vue'), // Layout wrapper
-        children: [
-            /* { path: '', component: () => import('pages/IndexPage.vue') }, // Default route
-            { path: 'about', component: () => import('pages/AboutPage.vue') }, // About page */
-        ],
+        component: () => import('../../pages/Home.vue'),
+
+       /*  beforeEnter: (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+            if (authContext.isAuthenticated) {
+                next();
+            } else {
+                next('/login');
+            }
+        }, */
+        
     },
 ];
 
-export default routes;
+const router = createRouter({
+    history: createWebHistory(),
+    routes,
+});
+
+export default router;
