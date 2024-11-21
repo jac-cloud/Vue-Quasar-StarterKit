@@ -16,5 +16,8 @@ export const useUserStore = defineStore('user', {
       this.user = null;
       this.isAuthenticated = false;
     },
+    getUser() {
+      return this.user;
+    },
   },
 });

@@ -31,7 +31,7 @@ export default {
         };
     },
     methods: {
-        onSubmit() {
+        onSubmit() { 
             if (this.email && this.password) {
                 // Handle login logic here
                 userStore.setUser({
@@ -41,7 +41,7 @@ export default {
                     token: 'token'
                 });
 
-                
+
             }
         }
     }

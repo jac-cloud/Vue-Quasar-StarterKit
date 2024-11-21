@@ -5,7 +5,7 @@
 
       <q-toolbar-title>
         <q-avatar>
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
         </q-avatar>
         Title
       </q-toolbar-title>
@@ -13,30 +13,41 @@
 
     <q-tabs align="center">
       <q-route-tab to="/" label="Home Page" />
-      <q-route-tab to="/page2" label="Page Two" />
-      <q-route-tab to="/page3" label="Page Three" />
+      <q-route-tab to="/login" label="Login Page" />
+      <q-route-tab v-if="isLogged" to="/me" label="User info Page" />
+      <q-route-tab v-if="isLogged" @click="logout" label="Logout" />
     </q-tabs>
   </q-header>
 
   <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
     <!-- drawer content -->
   </q-drawer>
-
 </template>
 
 <script>
-import { ref } from 'vue'
+import { useUserStore } from '../utils/store/userStore';
 
 export default {
-  setup() {
-    const leftDrawerOpen = ref(false)
-
+  data() {
     return {
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      leftDrawerOpen: false
+    };
+  },
+  methods: {
+    toggleLeftDrawer() {
+      this.leftDrawerOpen = !this.leftDrawerOpen;
+    },
+    logout() {
+      const userStore = useUserStore();  // Access store inside a method
+      userStore.clearUser();  // Call the store action
+    }
+  },
+  computed: {
+    isLogged() {
+      const userStore = useUserStore();  // Access store inside computed
+      console.log(userStore.isAuthenticated);
+      return userStore.isAuthenticated;
     }
   }
-}
+};
 </script>

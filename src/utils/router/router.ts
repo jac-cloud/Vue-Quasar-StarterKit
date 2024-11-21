@@ -15,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
         meta: {  },
         component: () => import('../../pages/Login.vue'),
     },
+    {
+        path: '/me',
+        meta: { auth: true },
+        component: () => import('../../pages/Userinfo.vue'),
+    }
 ];
 
 const router = createRouter({
