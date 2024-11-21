@@ -1,17 +1,20 @@
-import { defineStore } from 'pinia'
+// src/stores/userStore.js
+import { defineStore } from 'pinia';
+import { User } from '../types';
 
-interface CounterState {
-    count: number;
-}
-
-export const useCounterStore = defineStore<'counter', CounterState>({
-    id: 'counter',
-    state: (): CounterState => {
-        return { count: 0 }
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    user: null as User | null,
+    isAuthenticated: false,
+  }),
+  actions: {
+    setUser(userData : User) {
+      this.user = userData;
+      this.isAuthenticated = true;
     },
-    actions: {
-        increment() {
-            this.count++
-        },
+    clearUser() {
+      this.user = null;
+      this.isAuthenticated = false;
     },
-})
+  },
+});

@@ -1,10 +1,14 @@
-import { createRouter, createWebHistory, RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
-import authContext from '../auth/authContext'; 
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import authGuard from '../auth/authGuard';
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
+        meta: {  },
         component: () => import('../../pages/Home.vue'),
+        beforeEnter: (to, from, next) => {
+            authGuard.beforeEnter(to, from, next);
+        }
 
        
         
