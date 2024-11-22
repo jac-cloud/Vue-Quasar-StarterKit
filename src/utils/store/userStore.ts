@@ -21,6 +21,9 @@ export const useUserStore = defineStore('user', {
     },
     getIsAuthenticated() {
       return this.isAuthenticated;
+    },
+    getToken() {
+      return this.user?.token;
     }
   },
 });
