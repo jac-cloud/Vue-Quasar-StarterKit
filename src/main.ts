@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
+import { createI18n } from 'vue-i18n'
+
 import '@quasar/extras/material-icons/material-icons.css'
 import '@quasar/extras/material-symbols-rounded/material-symbols-rounded.css'
 
@@ -16,6 +18,14 @@ myApp.use(Quasar, {
   plugins: {
   }, // import Quasar plugins and add here
 })
+
+const i18n = createI18n({
+  locale: 'it',
+  messages: {
+  }
+})
+
+myApp.use(i18n)
 
 myApp.use(router)
 

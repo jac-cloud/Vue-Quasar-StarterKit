@@ -19,6 +19,9 @@ const routes: Array<RouteRecordRaw> = [
         path: '/me',
         meta: { auth: true },
         component: () => import('../../pages/Userinfo.vue'),
+        beforeEnter: (to, from, next) => {
+            authGuard.beforeEnter(to, from, next);
+        },
     }
 ];
 
