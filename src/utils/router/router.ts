@@ -6,9 +6,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         meta: {  },
         component: () => import('../../pages/Home.vue'),
-/*         beforeEnter: (to, from, next) => {
-            authGuard.beforeEnter(to, from, next);
-        }, */
     },
     {
         path: '/login',
@@ -19,15 +16,16 @@ const routes: Array<RouteRecordRaw> = [
         path: '/me',
         meta: { auth: true },
         component: () => import('../../pages/Userinfo.vue'),
-        beforeEnter: (to, from, next) => {
-            authGuard.beforeEnter(to, from, next);
-        },
     }
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    authGuard.beforeEnter(to, from, next);
 });
 
 export default router;
