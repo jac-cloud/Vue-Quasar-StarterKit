@@ -9,15 +9,14 @@
                 <q-form @submit="onSubmit">
                     <q-input v-model="email" label="Email" type="email" :rules="[val => !!val || 'Email is required']"
                         outlined class="q-mb-md" autofocus />
-                    <q-input v-model="password" label="Password" type="password"
-                        :rules="[
-                            val => !!val || 'Password is required',
-                            val => val.length >= 4 || 'Password must be at least 8 characters',
-                            val => /[A-Z]/.test(val) || 'Password must contain at least one uppercase letter',
-                            val => /[a-z]/.test(val) || 'Password must contain at least one lowercase letter',
-                            val => /[0-9]/.test(val) || 'Password must contain at least one number',
-                            val => /[!@#$%^&*]/.test(val) || 'Password must contain at least one special character'
-                        ]" outlined class="q-mb-md" />
+                    <q-input v-model="password" label="Password" type="password" :rules="[
+                        val => !!val || 'Password is required',
+                        val => val.length >= 4 || 'Password must be at least 8 characters',
+                        val => /[A-Z]/.test(val) || 'Password must contain at least one uppercase letter',
+                        val => /[a-z]/.test(val) || 'Password must contain at least one lowercase letter',
+                        val => /[0-9]/.test(val) || 'Password must contain at least one number',
+                        val => /[!@#$%^&*]/.test(val) || 'Password must contain at least one special character'
+                    ]" outlined class="q-mb-md" />
                     <q-btn type="submit" label="Login" color="primary" class="full-width q-mt-md" />
                 </q-form>
             </q-card-section>
@@ -41,7 +40,7 @@ export default {
         };
     },
     methods: {
-        onSubmit() { 
+        onSubmit() {
             this.$q.notify({
                 color: 'primary',
                 position: 'top',
@@ -56,7 +55,7 @@ export default {
                     roles: ['admin'],
                     token: 'token'
                 });
-
+                this.$router.push('/');
 
             }
         }

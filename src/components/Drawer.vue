@@ -38,6 +38,7 @@ export default {
     logout() {
       const userStore = useUserStore();  // Access store inside a method
       userStore.logout();  // Call the store action
+      this.$router.push('/login');
     },
   },
   computed: {
