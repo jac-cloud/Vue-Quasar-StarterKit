@@ -13,7 +13,7 @@
 
     <q-tabs align="center">
       <q-route-tab to="/" label="Home Page" />
-      <q-route-tab to="/login" label="Login Page" />
+      <q-route-tab v-if="!isLogged" to="/login" label="Login Page" />
       <q-route-tab v-if="isLogged" to="/me" label="User info Page" />
       <q-route-tab v-if="isLogged" @click="logout" label="Logout" />
     </q-tabs>
