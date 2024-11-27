@@ -23,10 +23,16 @@ export default {
     },
     methods: {
         changeLanguage() {
-            console.log(this.selectedLanguage);
             this.useSettingsStore.setLanguage(this.selectedLanguage.value);
             this.$i18n.locale = this.selectedLanguage.value;
         },
+    },
+    mounted() {
+        this.$i18n.locale = this.useSettingsStore.getLanguage();
+        this.selectedLanguage = {
+            label: languages[this.$i18n.locale].label,
+            value: this.$i18n.locale,
+        };
     },
 };
 </script>
