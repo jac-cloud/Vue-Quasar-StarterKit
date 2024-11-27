@@ -8,7 +8,7 @@ import '@quasar/extras/material-symbols-rounded/material-symbols-rounded.css'
 // Import Quasar css
 import 'quasar/dist/quasar.css'
 
-import App from './AppLayout.vue'
+import App from './App.vue'
 import router from './utils/router/router'
 import pinia from './utils/store/storeConfiguration'
 

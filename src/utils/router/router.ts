@@ -1,21 +1,45 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import authGuard from '../auth/authGuard';
 
+import AppLayout from '../../layouts/AppLayout.vue';
+import NoLayoutLayout from '../../layouts/NoLayoutLayout.vue';
+
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/',
         meta: {  },
-        component: () => import('../../pages/Home.vue'),
+        component: AppLayout,
+        children: [
+            {
+                path: '',
+                meta: {  },
+                component: () => import('../../pages/Home.vue'),
+            },
+        ] 
     },
     {
         path: '/login',
         meta: {  },
-        component: () => import('../../pages/Login.vue'),
+        component: NoLayoutLayout,
+        children: [
+            {
+                path: '',
+                meta: {  },
+                component: () => import('../../pages/Login.vue'),
+            },
+        ]
     },
     {
         path: '/me',
         meta: { auth: true },
-        component: () => import('../../pages/Userinfo.vue'),
+        component: AppLayout,
+        children: [
+            {
+                'path': '',
+                'meta': { auth: true },
+                'component': () => import('../../pages/Userinfo.vue'),
+            },
+        ]
     }
 ];
 
