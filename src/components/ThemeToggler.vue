@@ -34,7 +34,6 @@ export default {
   },
 
   created() {
-    console.log(this.settingsStore.getTheme());
     this.themeIsDark = this.settingsStore.getTheme();
   },
 };

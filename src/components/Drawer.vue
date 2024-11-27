@@ -7,7 +7,7 @@
         </q-avatar>
         Title
       </q-toolbar-title>
-
+      <LanguageSelector />
       <ThemeToggler />
     </q-toolbar>
 
@@ -23,6 +23,7 @@
 
 <script>
 import { useUserStore } from '../utils/store/userStore';
+import LanguageSelector from './LanguageSelector.vue';
 import ThemeToggler from './ThemeToggler.vue';
 
 export default {
@@ -32,7 +33,8 @@ export default {
     };
   },
   components: {
-    ThemeToggler
+    ThemeToggler,
+    LanguageSelector,
   },
   methods: {
     logout() {

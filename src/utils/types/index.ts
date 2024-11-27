@@ -7,4 +7,5 @@ export type User = {
 
 export type Settings = {
     isDarkTheme: boolean;
+    languageSelected: string;
 };
