@@ -3,7 +3,7 @@
     <q-card>
       <q-card-section>
         <q-card-title>
-          <div class="text-h6">Home Page</div>
+          <div class="text-h6">{{ $t('welcome') }}</div>
         </q-card-title>
         <q-card-main>
           <q-img

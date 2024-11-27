@@ -14,17 +14,32 @@ import pinia from './utils/store/storeConfiguration'
 
 const myApp = createApp(App)
 
+
+const i18n = createI18n({
+  locale: 'en-EN',
+  messages: {
+    en: {
+      welcome: 'Welcome to Quasar Vue 3 App',
+      home: 'Home',
+      about: 'About',
+      contact: 'Contact',
+      settings: 'Settings',
+    },
+    it: {
+      welcome: 'Benvenuto in Quasar Vue 3 App',
+      home: 'Casa',
+      about: 'Di',
+      contact: 'Contatto',
+      settings: 'Impostazioni',
+    }
+  }
+})
+
 myApp.use(Quasar, {
   plugins: {
     Notify,
-    Dark
+    Dark,
   }, // import Quasar plugins and add here
-})
-
-const i18n = createI18n({
-  locale: 'it',
-  messages: {
-  }
 })
 
 myApp.use(i18n)
