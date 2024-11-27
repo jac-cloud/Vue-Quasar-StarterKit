@@ -4,3 +4,7 @@ export type User = {
     roles: string[];
     token: string;
 };
+
+export type Settings = {
+    isDarkTheme: boolean;
+};
