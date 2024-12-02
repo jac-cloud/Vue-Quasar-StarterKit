@@ -7,16 +7,12 @@
 
             <q-card-section>
                 <q-form @submit="onSubmit">
-                    <q-input v-model="email" label="Email" type="email" :rules="[val => !!val || 'Email is required']"
-                        outlined class="q-mb-md" autofocus />
-                    <q-input v-model="password" label="Password" type="password" :rules="[
-                        val => !!val || 'Password is required',
-                        val => val.length >= 4 || 'Password must be at least 8 characters',
-                        val => /[A-Z]/.test(val) || 'Password must contain at least one uppercase letter',
-                        val => /[a-z]/.test(val) || 'Password must contain at least one lowercase letter',
-                        val => /[0-9]/.test(val) || 'Password must contain at least one number',
-                        val => /[!@#$%^&*]/.test(val) || 'Password must contain at least one special character'
-                    ]" outlined class="q-mb-md" />
+                    <q-input v-model="email" label="Email" outlined />
+                    <div v-for="error in v$.$errors.filter(item => item.$property === 'email')" :key="error" class="text-negative">{{ error }}</div>
+                    <q-space />
+                    <q-input v-model="password" label="Password" type="password" outlined />
+                    <div v-for="error in v$.$errors.filter(item => item.$property === 'password')" :key="error" class="text-negative">{{ error }}</div>
+                    <q-space />
                     <q-btn type="submit" label="Login" color="primary" class="full-width q-mt-md" />
                 </q-form>
             </q-card-section>
@@ -27,36 +23,71 @@
 <script>
 import { useQuasar } from 'quasar';
 import { useUserStore } from '../utils/store/userStore';
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, minLength } from '@vuelidate/validators'
 
 const userStore = useUserStore();
 
 const $q = useQuasar();
 
 export default {
+    setup() {
+        const v$ = useVuelidate();
+        return { v$ };
+    },
     data() {
         return {
-            email: '',
-            password: ''
+            email: 'f@f.com',
+            password: '123Aa!4'
         };
     },
     methods: {
-        onSubmit() {
-            this.$q.notify({
-                color: 'primary',
-                position: 'top',
-                message: 'Logging in...',
-                icon: 'cloud_done'
-            });
-            if (this.email && this.password) {
-                // Handle login logic here
+        async onSubmit() {
+            const result = await this.v$.$validate()
+            if (result) {
                 userStore.login({
-                    id: '1',
-                    name: 'John Doe',
-                    roles: ['admin'],
-                    token: 'token'
+                    email: this.email,
+                    password: this.password
                 });
+                if (!userStore.isAuthenticated){
+                    this.$q.notify({
+                        color: 'negative',
+                        position: 'top',
+                        message: 'Invalid credentials',
+                        icon: 'warning'
+                    });
+                    return;
+                }
                 this.$router.push('/');
-
+                this.$q.notify({
+                    color: 'primary',
+                    position: 'top',
+                    message: 'Logging in...',
+                    icon: 'cloud_done'
+                });
+            } else {
+                this.$q.notify({
+                    color: 'negative',
+                    position: 'top',
+                    message: 'Please fill in the form correctly',
+                    icon: 'warning'
+                });
+            }
+        }
+    },
+    validations() {
+        return {
+            email: {
+                required,
+                email
+            },
+            password: {
+                required,
+                minLength: minLength(6),
+                uppercase: (value) => /[A-Z]/.test(value),
+                lowercase: (value) => /[a-z]/.test(value),
+                number: (value) => /[0-9]/.test(value),
+                special: (value) => /[!@#$%^&*]/.test(value)
             }
         }
     }
