@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { User } from '../types';
+import { useSettingsStore } from './settingsStore';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -8,9 +9,14 @@ export const useUserStore = defineStore('user', {
   }),
   persist: true,
   actions: {
-    login(userData : User) {
-      this.user = userData;
-      this.isAuthenticated = true;
+    login(userData: { email: string; password: string }) {
+      const settingsStore = useSettingsStore();
+      const registered = settingsStore.settings.accountRegistered;
+      const user = registered.find(u => u.email === userData.email && u.password === userData.password);
+      if (user) {
+        this.user = user;
+        this.isAuthenticated = true
+      }
     },
     logout() {
       this.user = null;
@@ -22,8 +28,5 @@ export const useUserStore = defineStore('user', {
     getIsAuthenticated() {
       return this.isAuthenticated;
     },
-    getToken() {
-      return this.user?.token;
-    }
   },
 });
