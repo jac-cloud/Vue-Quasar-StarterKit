@@ -32,7 +32,14 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/register',
         meta: {  },
-        component: () => import('../../pages/Register.vue'),
+        component: NoLayoutLayout,
+        children: [
+            {
+                path: '',
+                meta: {  },
+                component: () => import('../../pages/Register.vue'),
+            },
+        ]
     },
     {
         path: '/me',
