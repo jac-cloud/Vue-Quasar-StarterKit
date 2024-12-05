@@ -40,14 +40,6 @@
                     <div v-for="error in v$.$errors.filter(item => item.$property === 'privacyAccepted')" :key="error"
                         class="text-negative q-mt-xs">{{ error.$message }}</div>
                     <q-space />
-
-                    <q-btn
-                        label="Already registered? Login"
-                        color="primary"
-                        class="full-width q-mt-md"
-                        @click="$router.push('/login')"
-                    />
-
                     <q-btn type="submit" label="Register" color="primary" class="full-width q-mt-md" />
                 </q-form>
             </q-card-section>
@@ -56,98 +48,98 @@
 </template>
 
 <script>
-import { useQuasar } from "quasar";
-import { useSettingsStore } from "../utils/store/settingsStore";
-import { useVuelidate } from "@vuelidate/core";
-import { required, email, minLength, sameAs } from "@vuelidate/validators";
+import { useQuasar } from 'quasar';
+import { useSettingsStore } from '../utils/store/settingsStore';
+import { useVuelidate } from '@vuelidate/core'
+import { required, email, minLength, sameAs } from '@vuelidate/validators'
 
 const userSetting = useSettingsStore();
 
 const $q = useQuasar();
 
 export default {
-	setup() {
-		const v$ = useVuelidate();
-		return { v$ };
-	},
-	data() {
-		return {
-			name: "",
-			surname: "",
-			sex: "",
-			email: "",
-			password: "",
-			confirmPassword: "",
-			role: "Client",
-			privacyAccepted: false,
-			sexOptions: ["Male", "Female", "Other"],
-			roleOptions: ["Client", "Admin"],
-		};
-	},
-	methods: {
-		async onSubmit() {
-			const result = await this.v$.$validate();
-			if (result) {
-				const result = userSetting.addAccount({
-					name: this.name,
-					surname: this.surname,
-					email: this.email,
-					sex: this.sex,
-					role: this.role,
-					password: this.password,
-					privacyAccepted: this.privacyAccepted,
-				});
-				if (!result) {
-					this.$q.notify({
-						color: "negative",
-						position: "top",
-						message: "Account already exists",
-						icon: "warning",
-					});
-					return;
-				}
-				this.$router.push("/");
-				this.$q.notify({
-					color: "primary",
-					position: "top",
-					message: "Registering...",
-					icon: "cloud_done",
-				});
-			} else {
-				this.$q.notify({
-					color: "negative",
-					position: "top",
-					message: "Please fill in the form correctly",
-					icon: "warning",
-				});
-			}
-		},
-	},
-	validations() {
-		return {
-			name: { required },
-			surname: { required },
-			sex: { required },
-			email: {
-				required,
-				email,
-			},
-			password: {
-				required,
-				minLength: minLength(6),
-				uppercase: (value) => /[A-Z]/.test(value),
-				lowercase: (value) => /[a-z]/.test(value),
-				number: (value) => /[0-9]/.test(value),
-				special: (value) => /[!@#$%^&*]/.test(value),
-			},
-			confirmPassword: {
-				required,
-				sameAsPassword: sameAs(this.password),
-			},
-			role: { required },
-			privacyAccepted: { required },
-		};
-	},
+    setup() {
+        const v$ = useVuelidate();
+        return { v$ };
+    },
+    data() {
+        return {
+            name: '',
+            surname: '',
+            sex: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            role: 'Client',
+            privacyAccepted: false,
+            sexOptions: ['Male', 'Female', 'Other'],
+            roleOptions: ['Client', 'Admin']
+        };
+    },
+    methods: {
+        async onSubmit() {
+            const result = await this.v$.$validate()
+            if (result) {
+                const result = userSetting.addAccount({
+                    name: this.name,
+                    surname: this.surname,
+                    email: this.email,
+                    sex: this.sex,
+                    role: this.role,
+                    password: this.password,
+                    privacyAccepted: this.privacyAccepted
+                });
+                if (!result) {
+                    this.$q.notify({
+                        color: 'negative',
+                        position: 'top',
+                        message: 'Account already exists',
+                        icon: 'warning'
+                    });
+                    return;
+                }
+                this.$router.push('/');
+                this.$q.notify({
+                    color: 'primary',
+                    position: 'top',
+                    message: 'Registering...',
+                    icon: 'cloud_done'
+                });
+            } else {
+                this.$q.notify({
+                    color: 'negative',
+                    position: 'top',
+                    message: 'Please fill in the form correctly',
+                    icon: 'warning'
+                });
+            }
+        }
+    },
+    validations() {
+        return {
+            name: { required },
+            surname: { required },
+            sex: { required },
+            email: {
+                required,
+                email
+            },
+            password: {
+                required,
+                minLength: minLength(6),
+                uppercase: (value) => /[A-Z]/.test(value),
+                lowercase: (value) => /[a-z]/.test(value),
+                number: (value) => /[0-9]/.test(value),
+                special: (value) => /[!@#$%^&*]/.test(value)
+            },
+            confirmPassword: {
+                required,
+                sameAsPassword: sameAs(this.password)
+            },
+            role: { required },
+            privacyAccepted: { required }
+        }
+    }
 };
 </script>
 

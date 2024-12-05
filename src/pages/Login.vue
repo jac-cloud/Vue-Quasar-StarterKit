@@ -13,6 +13,12 @@
                     <q-input v-model="password" label="Password" type="password" outlined />
                     <div v-for="error in v$.$errors.filter(item => item.$property === 'password')" :key="error" class="text-negative">{{ error }}</div>
                     <q-space />
+                    <q-btn
+                        label="Not registered? Register"
+                        color="primary"
+                        class="full-width q-mt-md"
+                        @click="$router.push('/register')"
+                    />
                     <q-btn type="submit" label="Login" color="primary" class="full-width q-mt-md" />
                 </q-form>
             </q-card-section>
@@ -21,76 +27,76 @@
 </template>
 
 <script>
-import { useQuasar } from 'quasar';
-import { useUserStore } from '../utils/store/userStore';
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, minLength } from '@vuelidate/validators'
+import { useQuasar } from "quasar";
+import { useUserStore } from "../utils/store/userStore";
+import { useVuelidate } from "@vuelidate/core";
+import { required, email, minLength } from "@vuelidate/validators";
 
 const userStore = useUserStore();
 
 const $q = useQuasar();
 
 export default {
-    setup() {
-        const v$ = useVuelidate();
-        return { v$ };
-    },
-    data() {
-        return {
-            email: 'f@f.com',
-            password: '123Aa!4'
-        };
-    },
-    methods: {
-        async onSubmit() {
-            const result = await this.v$.$validate()
-            if (result) {
-                userStore.login({
-                    email: this.email,
-                    password: this.password
-                });
-                if (!userStore.isAuthenticated){
-                    this.$q.notify({
-                        color: 'negative',
-                        position: 'top',
-                        message: 'Invalid credentials',
-                        icon: 'warning'
-                    });
-                    return;
-                }
-                this.$router.push('/');
-                this.$q.notify({
-                    color: 'primary',
-                    position: 'top',
-                    message: 'Logging in...',
-                    icon: 'cloud_done'
-                });
-            } else {
-                this.$q.notify({
-                    color: 'negative',
-                    position: 'top',
-                    message: 'Please fill in the form correctly',
-                    icon: 'warning'
-                });
-            }
-        }
-    },
-    validations() {
-        return {
-            email: {
-                required,
-                email
-            },
-            password: {
-                required,
-                minLength: minLength(6),
-                uppercase: (value) => /[A-Z]/.test(value),
-                lowercase: (value) => /[a-z]/.test(value),
-                number: (value) => /[0-9]/.test(value),
-                special: (value) => /[!@#$%^&*]/.test(value)
-            }
-        }
-    }
+	setup() {
+		const v$ = useVuelidate();
+		return { v$ };
+	},
+	data() {
+		return {
+			email: "",
+			password: "",
+		};
+	},
+	methods: {
+		async onSubmit() {
+			const result = await this.v$.$validate();
+			if (result) {
+				userStore.login({
+					email: this.email,
+					password: this.password,
+				});
+				if (!userStore.isAuthenticated) {
+					this.$q.notify({
+						color: "negative",
+						position: "top",
+						message: "Invalid credentials",
+						icon: "warning",
+					});
+					return;
+				}
+				this.$router.push("/");
+				this.$q.notify({
+					color: "primary",
+					position: "top",
+					message: "Logging in...",
+					icon: "cloud_done",
+				});
+			} else {
+				this.$q.notify({
+					color: "negative",
+					position: "top",
+					message: "Please fill in the form correctly",
+					icon: "warning",
+				});
+			}
+		},
+	},
+	validations() {
+		return {
+			email: {
+				required,
+				email,
+			},
+			password: {
+				required,
+				minLength: minLength(6),
+				uppercase: (value) => /[A-Z]/.test(value),
+				lowercase: (value) => /[a-z]/.test(value),
+				number: (value) => /[0-9]/.test(value),
+				special: (value) => /[!@#$%^&*]/.test(value),
+			},
+		};
+	},
 };
 </script>
 
