@@ -15,6 +15,7 @@
       <q-route-tab to="/" label="Home Page" />
       <q-route-tab v-if="!isLogged" to="/login" label="Login Page" />
       <q-route-tab v-if="isLogged" to="/me" label="User info Page" />
+      <q-route-tab v-if="isLogged" to="/data" label="Data" />
       <q-route-tab v-if="!isLogged" to="/register" label="Register Page" />
       <q-route-tab v-if="isLogged" @click="logout" label="Logout" />
     </q-tabs>
@@ -23,32 +24,32 @@
 </template>
 
 <script>
-import { useUserStore } from '../utils/store/userStore';
-import LanguageSelector from './LanguageSelector.vue';
-import ThemeToggler from './ThemeToggler.vue';
+import { useUserStore } from "../utils/store/userStore";
+import LanguageSelector from "./LanguageSelector.vue";
+import ThemeToggler from "./ThemeToggler.vue";
 
 export default {
-  data() {
-    return {
-      leftDrawerOpen: false,
-    };
-  },
-  components: {
-    ThemeToggler,
-    LanguageSelector,
-  },
-  methods: {
-    logout() {
-      const userStore = useUserStore();  // Access store inside a method
-      userStore.logout();  // Call the store action
-      this.$router.push('/login');
-    },
-  },
-  computed: {
-    isLogged() {
-      const userStore = useUserStore();  // Access store inside computed
-      return userStore.isAuthenticated;
-    },
-  }
+	data() {
+		return {
+			leftDrawerOpen: false,
+		};
+	},
+	components: {
+		ThemeToggler,
+		LanguageSelector,
+	},
+	methods: {
+		logout() {
+			const userStore = useUserStore(); // Access store inside a method
+			userStore.logout(); // Call the store action
+			this.$router.push("/login");
+		},
+	},
+	computed: {
+		isLogged() {
+			const userStore = useUserStore(); // Access store inside computed
+			return userStore.isAuthenticated;
+		},
+	},
 };
 </script>

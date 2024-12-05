@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import {
+	createRouter,
+	createWebHistory,
+	type RouteRecordRaw,
+} from "vue-router";
 import authGuard from "../auth/authGuard";
 
 import AppLayout from "../../layouts/AppLayout.vue";
@@ -44,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: "/data",
 		meta: { auth: true },
-		component: NoLayoutLayout,
+		component: AppLayout,
 		children: [
 			{
 				path: "",
