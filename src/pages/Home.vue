@@ -1,29 +1,30 @@
 <template>
   <q-page class="q-pa-md flex flex-center">
-    <q-card>
-      <q-card-section>
-        <q-card-title>
-          <div class="text-h6">{{ $t('welcome') }}</div>
-        </q-card-title>
-        <q-card-main>
-          <q-img
-            src="/vite.svg"
-            style="max-width: 200px"
-          />
-        </q-card-main>
-      </q-card-section>
-    </q-card>
+      <img src="https://em-content.zobj.net/source/apple/391/clown-face_1f921.png" alt="Popipopi" class="q-mb-md anim" width="400px"/>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+	name: "Home",
 };
 </script>
 
 <style scoped>
 .q-page {
   background-color: #f5f5f5;
+}
+
+.anim {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

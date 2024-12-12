@@ -5,7 +5,7 @@
         <q-avatar>
           <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
         </q-avatar>
-        Title
+        Vue-Quasar-StarterKit
       </q-toolbar-title>
       <LanguageSelector />
       <ThemeToggler />
